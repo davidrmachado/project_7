@@ -9,7 +9,7 @@ class Login extends Component {
 
     this.state = {
       name: '',
-      isloading: false,
+      isLoading: false,
       redirect: false,
     };
   }
@@ -23,15 +23,15 @@ class Login extends Component {
 
   onButtonClick = async () => {
     const { name } = this.state;
-    this.setState({ isloading: true });
+    this.setState({ isLoading: true });
     await createUser({ name });
-    this.setState({ isloading: false, redirect: true });
+    this.setState({ isLoading: false, redirect: true });
   }
 
   render() {
-    const { name, isloading, redirect } = this.state;
+    const { name, isLoading, redirect } = this.state;
     const minInput = 3;
-    if (isloading === true) return <Loading />;
+    if (isLoading === true) return <Loading />;
     if (redirect === true) return <Redirect to="/search" />;
     return (
       <div data-testid="page-login">
