@@ -27,9 +27,9 @@ class Album extends Component {
     const { musics } = this.state;
     return (
       <div>
+        <Header />
         {musics !== undefined && (
           <div data-testid="page-album">
-            <Header />
             <div data-testid="artist-name">{musics[0].artistName}</div>
             <div data-testid="album-name">{musics[0].collectionName}</div>
             {musics.map((music) => {
@@ -41,6 +41,7 @@ class Album extends Component {
                   <MusicCard
                     trackName={ music.trackName }
                     previewUrl={ music.previewUrl }
+                    trackId={ music.trackId }
                   />
                 </div>
               );
