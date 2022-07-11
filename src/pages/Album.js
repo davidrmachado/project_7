@@ -10,7 +10,6 @@ class Album extends Component {
     super();
 
     this.state = {
-      isLoading: false,
       musics: undefined,
       favList: [],
     };
@@ -22,20 +21,11 @@ class Album extends Component {
   }
 
   getFavorites = async () => {
-    this.setState({ isLoading: true });
+    // this.setState({ isLoading: true });
     const favList = await getFavoriteSongs();
     this.setState({ favList });
-    this.setState({ isLoading: false });
+    // this.setState({ isLoading: false });
   }
-
-  // isFavorite = () => {
-  //   const { musics, favList } = this.state;
-  //   return (
-  //     musics.forEach((music) => {
-        
-  //     })
-  //   );
-  // }
 
   getData = async () => {
     const { match: { params: { id } } } = this.props;
