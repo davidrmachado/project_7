@@ -31,7 +31,6 @@ class Search extends Component {
     this.setState({ searchParam: '' });
     this.isLoading = false;
     this.setState({ searchResult: result });
-    console.log(result);
   }
 
   renderResult = () => {
@@ -71,7 +70,7 @@ class Search extends Component {
             />
             <button
               data-testid="search-artist-button"
-              type="submit"
+              type="button"
               disabled={ searchParam.length < minChar }
               onClick={ this.onSearchClick }
             >
