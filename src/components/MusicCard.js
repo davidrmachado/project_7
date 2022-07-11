@@ -12,14 +12,14 @@ class MusicCard extends Component {
   }
 
 addFavorites = async ({ target }) => {
-  const { trackId } = this.props;
+  const { music } = this.props;
   this.setState({ isLoading: true });
-  if (target.checked) await addSong({ trackId });
+  if (target.checked) await addSong(music);
   this.setState({ isLoading: false });
 }
 
 render() {
-  const { trackName, previewUrl, trackId } = this.props;
+  const { trackName, previewUrl, trackId, favs } = this.props;
   const { isLoading } = this.state;
   return (
     <div>
@@ -36,6 +36,7 @@ render() {
           data-testid={ `checkbox-music-${trackId}` }
           type="checkbox"
           id="fav"
+          checked={ favs }
           onChange={ this.addFavorites }
         />
       </label>

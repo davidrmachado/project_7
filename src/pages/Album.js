@@ -3,19 +3,39 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends Component {
   constructor() {
     super();
 
     this.state = {
+      isLoading: false,
       musics: undefined,
+      favList: [],
     };
   }
 
   componentDidMount() {
+    this.getFavorites();
     this.getData();
   }
+
+  getFavorites = async () => {
+    this.setState({ isLoading: true });
+    const favList = await getFavoriteSongs();
+    this.setState({ favList });
+    this.setState({ isLoading: false });
+  }
+
+  // isFavorite = () => {
+  //   const { musics, favList } = this.state;
+  //   return (
+  //     musics.forEach((music) => {
+        
+  //     })
+  //   );
+  // }
 
   getData = async () => {
     const { match: { params: { id } } } = this.props;
@@ -24,7 +44,7 @@ class Album extends Component {
   };
 
   render() {
-    const { musics } = this.state;
+    const { musics, favList } = this.state;
     return (
       <div>
         <Header />
@@ -35,6 +55,18 @@ class Album extends Component {
             {musics.map((music) => {
               if (music.kind !== 'song') {
                 return;
+              } if (favList.some((song) => music.trackId === song.trackId)) {
+                return (
+                  <div key={ music.trackId }>
+                    <MusicCard
+                      trackName={ music.trackName }
+                      previewUrl={ music.previewUrl }
+                      trackId={ music.trackId }
+                      music={ music }
+                      favs
+                    />
+                  </div>
+                );
               }
               return (
                 <div key={ music.trackId }>
@@ -42,6 +74,7 @@ class Album extends Component {
                     trackName={ music.trackName }
                     previewUrl={ music.previewUrl }
                     trackId={ music.trackId }
+                    music={ music }
                   />
                 </div>
               );
